@@ -1,0 +1,7 @@
+name: Feature (not needed by school)
+description: File a feature
+body: 
+  - type: textarea
+    attributes: 
+      label: Which feature?
+      description: Explain what it should do.

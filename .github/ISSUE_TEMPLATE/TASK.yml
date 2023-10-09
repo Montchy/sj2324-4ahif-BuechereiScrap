@@ -1,0 +1,17 @@
+name: Task (important)
+description: File a task
+body: 
+  - type: textarea
+    attributes: 
+      label: Which task?
+      description: Explain the task.
+
+  - type: input
+    attributes:
+      label: Startdate
+      description: Startdate of this Task
+
+  - type: input
+    attributes:
+      label: Enddate
+      description: Enddate of this Task

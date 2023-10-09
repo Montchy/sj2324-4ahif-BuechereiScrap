@@ -1,0 +1,12 @@
+name: Bug Report (something isn't working)
+description: File a bug report
+body: 
+  - type: textarea
+    attributes: 
+      label: Which bug?
+      description: Explain what you are trying to do.
+
+  - type: textarea
+    attributes:
+      label: How to recreate?
+      description: Steps done till the bug occurs. 
