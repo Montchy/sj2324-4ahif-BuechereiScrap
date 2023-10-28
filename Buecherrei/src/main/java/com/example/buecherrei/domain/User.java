@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,6 +26,8 @@ public class User extends Person{
     @ManyToMany(cascade = CascadeType.ALL)
     public @NotNull Set<BorrowedItem> currentlyBorrowed;
 
+
+    @Builder
     public User(@NotNull @NotEmpty String name, @NotNull @NotEmpty String surname, @Positive int age, @NotNull @NotEmpty String address,
                 @NotNull PhoneNumber phoneNumber, @NotNull SocialSecurityNumber socialSecurityNumber, boolean isStudent,
                 boolean isSenior, boolean isMember, Set<Membership> memberships, Set<BorrowedItem> currentlyBorrowed) {
