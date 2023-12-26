@@ -1,6 +1,5 @@
 package com.example.buecherrei.persistence.converter;
 
-import com.example.buecherrei.domain.BookGenre;
 import com.example.buecherrei.domain.MovieGenre;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
