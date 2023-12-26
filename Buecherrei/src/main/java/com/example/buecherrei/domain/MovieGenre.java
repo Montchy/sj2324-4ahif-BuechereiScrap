@@ -2,5 +2,8 @@ package com.example.buecherrei.domain;
 
 public enum MovieGenre {
     Action,
-    Comedy
+    Comedy,
+    Horror,
+    Romance,
+    Drama
 }
