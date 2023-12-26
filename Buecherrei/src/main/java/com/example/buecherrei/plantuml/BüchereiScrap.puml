@@ -1,0 +1,213 @@
+@startuml Boaks
+
+!define List(T) type List<T> = List<T>
+!define Location type Location = String
+!define boolean type boolean = boolean
+!define Enum type Enum = String
+
+
+entity Manager {
+   -  **managerId: int (PK)**
+  --
+  + salary: int
+  + employees: List<Employee> (FK)
+}
+
+entity Employee {
+   -  **employeeId: int (PK)**
+  --
+
+  + salary: int
+  + jobType: Type
+  + manager: Manager (FK, nullable)
+}
+
+entity Trainer {
+  + Trainee: string
+  + Certified: string
+  + ExtraSalary: int
+}
+
+entity Trainee {
+  + Trainer (FK)
+  + TrainingEnd: date
+  + TrainingStart: date
+}
+
+entity LibraryBooks {
+    -  **ItemNumber: int (PK)**
+  --
+   + IsBorrowed: boolean
+    + Location: Location
+  + BorrowingLibraries: List<Library> (FK)
+}
+
+entity LibraryMovies {
+   -  **ItemNumber: int (PK)**
+  --
+  + Film Title: String
+  + Genre: MovieGenre
+  + Actors: String
+  + Director: String
+  + Plot Summary: String
+  + Runtime: Int
+  + Rating and Age Restriction: String
+  + Release Date: Date
+  + Studio: String
+}
+
+enum MovieGenre
+{
+    Action
+    Comedy
+    'Drama     '
+    'Horror    '
+    'ScienceFiction
+    'Fantasy   '
+    'Romance   '
+    'Thriller  '
+    'Adventure '
+    'Mystery   '
+    'Animation '
+    'Documentary
+    'Crime     '
+    'Family    '
+    'Music     '
+    'Western   '
+    'War       '
+    'History   '
+    'Biography '
+    'Sport     '
+    'Superhero '
+    'Musical   '
+}
+
+
+enum BookGenre {
+  Novel
+  Biography
+'  Thriller
+'  Science Fiction
+'  Fantasy
+'  Mystery
+'  Romance
+'  Horror
+'  Non-fiction
+'  Self-Help
+'  Poetry
+'  Drama
+'  Children's Book
+'  Young Adult
+'  Short Story
+'  Essay
+'  Science
+'  Graphic Novel
+'  Classic Literature
+'  Historical Fiction
+
+}
+
+abstract class PersonalInformation {
++ SocialSecurityNumber: SocialSecurityNumber
++ Name: string
+  + Age: int
+  + Address: string
+  + PhoneNumber : string
+
+}
+
+entity SocialSecurityNumber {
+  + Birthdate : date
+  + RawSocialNumber: RawSocialNumber
+}
+
+class RawSocialNumber <<(R, #FF0000) ValueObject >>{
+  + RawSocialNumber : int
+
+}
+
+
+
+entity User {
+  -  **UserId: int (PK)**
+  + Student: boolean
+  + SeniorCitizen: boolean
+  + CurrentlyBorrowedItems: List<BorrowedItem> (FK)
+  + TotalBorrowedItems: List<BorrowedItem> (FK)
+  + IsMember: boolean
+}
+
+entity PhoneNumber{
+  CountryCode: int
+  AreaCode: int
+  LocalNumber: SerialPhoneNumber
+}
+
+class SerialPhoneNumber <<(R, #FF0000) ValueObject >>{
+  SerialNum: int
+}
+
+entity Membership {
+  + MemberTill: Date 
+  + GeneralDiscount: int
+  + MembershipType: MembershipType
+
+}
+
+entity Book{
++ Author: string
+  + Type: BookGenre
+  + Language: String
+  + MainCharacter: String
+  + Publisher: string
+  + Type : Genre
+
+}
+
+
+enum MembershipType {
+  VIP-Membership
+  Plus-Membership
+
+}
+
+entity BorrowedItem {
+   **BorrowedItemId: int (PK)**
+  + Users: List<User> (FK)
+  + Library: Library (FK)
+  - BorrowDate: date
+  + DueDate: date
+  + ReturnPolicy: string
+}
+
+
+entity Library {
+   **LibraryId: int (PK)**
+  + Name: string
+  + Location: Location
+  + ManagerId: int
+}
+
+Employee  <|--  Manager : "Manages"
+Employee  <|-- Trainee : "info"
+Employee  <|--  Trainer : "CanTrain"
+Employee "1..1" -- "0..n" LibraryMovies : "Manages"
+Employee  "1..1"-- "0..n" LibraryBooks : "Manages"
+User "1..1" --> "1..n" BorrowedItem : "Borrows"
+Trainer "1..1" -- "1..1" Trainee: "Trains"
+BorrowedItem "1..1" -right- "1..1" Library: "Borrowed At"
+LibraryBooks "1..1" .left. "1..1" BookGenre: "Genre"
+LibraryMovies "1..1" .left. "1..1" MovieGenre: "Genre"
+User "1..1"  -- "1..1" Membership: "Membership"
+Membership "1..1" .. "1..1" MembershipType: "Type"
+PersonalInformation "1..1" -- "1..1" PhoneNumber: "Has Number"
+PhoneNumber "1..1" -- "1..1" SerialPhoneNumber: "Serial"
+LibraryBooks "1..n" .. "0..n" BorrowedItem: "Borrow"
+LibraryMovies "1..n" .. "0..n" BorrowedItem: "Borrow"
+LibraryBooks "1..n" .Up. "1..1" Book: "Bookinformation"
+PersonalInformation "1..1" <|-- "1..1" User: "Info"
+PersonalInformation "1..1" <|-- "1..1" Employee: "Info"
+PersonalInformation "1..1" <|-- "1..1" SocialSecurityNumber: "Social num"
+SocialSecurityNumber "1..1" .. "1..1" RawSocialNumber: "Raw"
+
+@enduml
