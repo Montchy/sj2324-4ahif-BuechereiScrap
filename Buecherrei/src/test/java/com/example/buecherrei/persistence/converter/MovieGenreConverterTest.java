@@ -46,7 +46,7 @@ public class MovieGenreConverterTest {
                 Arguments.of("Comedy", MovieGenre.Comedy),
                 Arguments.of("Horror", MovieGenre.Horror),
                 Arguments.of("Romance", MovieGenre.Romance),
-                Arguments.of("Dramas", MovieGenre.Drama)
+                Arguments.of("Drama", MovieGenre.Drama)
         );
     }
 }

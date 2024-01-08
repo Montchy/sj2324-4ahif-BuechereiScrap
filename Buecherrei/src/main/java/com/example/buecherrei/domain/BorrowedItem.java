@@ -11,10 +11,11 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
 
-@Builder
 @Data
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
+
 @Entity
 @Table(name = "borroweditems")
 public class BorrowedItem extends AbstractPersistable<Long> {

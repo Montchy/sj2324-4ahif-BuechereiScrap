@@ -38,7 +38,7 @@ public class BorrowedItemRepositoryTest {
                 .build();
 
 
-        var test = borrowedItemRepository.saveAndFlush(b);
+        var test = borrowedItemRepository.save(b);
 
         assertThat(test).isSameAs(b);
         assertThat(test.getId()).isSameAs(b.getId());
