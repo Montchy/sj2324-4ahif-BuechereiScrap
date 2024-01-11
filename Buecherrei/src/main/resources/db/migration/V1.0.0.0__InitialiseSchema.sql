@@ -6,7 +6,6 @@ create sequence librarymovies_seq start with 1 increment by 50;
 create sequence person_seq start with 1 increment by 50;
 create sequence phonenumbers_seq start with 1 increment by 50;
 create sequence socialsecuritynumbers_seq start with 1 increment by 50;
-
 create table books (
                        id bigint not null,
                        author varchar(255),
