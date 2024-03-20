@@ -68,6 +68,34 @@ public class BookRestControllerTest {
     }
 
     @Test
+    void ensureGetBooksWithQuerystringWithDataDeliversStatusOkAndProperlyPopulatedArray() throws Exception {
+        var book = Book.builder()
+                .title("titel")
+                .blurb("blurb")
+                .genre(BookGenre.Comic)
+                .author("author")
+                .language("lang")
+                .publisher("pub")
+                .mainCharacter("Dieter Bohlen")
+                .build();;
+        when(bookService.getBooks()).thenReturn(List.of(book));
+        var request = get(BookRestController.BASE_URL).param("titelLike", "titl").accept(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.length()").value(1))
+                .andExpect(jsonPath("$[0].title").value("titel"))
+                .andExpect(jsonPath("$[0].blurb").value("blurb"))
+                .andExpect(jsonPath("$[0].genre").value("Comic"))
+                .andExpect(jsonPath("$[0].author").value("author"))
+                .andExpect(jsonPath("$[0].language").value("lang"))
+                .andExpect(jsonPath("$[0].publisher").value("pub"))
+                .andExpect(jsonPath("$[0].mainCharacter").value("Dieter Bohlen"))
+                .andDo(print());
+    }
+
+    @Test
     void ensureCreateBookHandlesTitleAlreadyExistsProperly() throws Exception {
         String title = "CryForHelp";
         var cmd = new CreateBookCommand(title,"Pennywise",BookGenre.Romance,"pain","Benni","Amis (R) Mutter","blurb");

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -24,7 +25,10 @@ public class BookRestController {
     private final BookService bookService;
 
     @GetMapping
-    public ResponseEntity<List<Book>> getBooks() {
+    public ResponseEntity<List<Book>> getBooks(@RequestParam Optional<String> titelLike) {
+        List<Book> books = titelLike.map(bookService::findBooksWithTitelLike)
+                                         .orElseGet(bookService::getBooks);
+
         return bookService.getBooks().isEmpty()
                 ? ResponseEntity.noContent().build()
                 : ResponseEntity.ok(bookService.getBooks());

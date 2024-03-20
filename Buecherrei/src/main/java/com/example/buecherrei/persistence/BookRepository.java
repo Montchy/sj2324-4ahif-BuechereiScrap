@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
     boolean existsByTitle(@NotBlank String title);
+
+    Object findAllByTitleLike(String titelLike);
 }
