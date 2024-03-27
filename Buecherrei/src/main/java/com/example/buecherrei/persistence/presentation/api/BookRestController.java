@@ -3,6 +3,7 @@ package com.example.buecherrei.persistence.presentation.api;
 import com.example.buecherrei.domain.Book;
 import com.example.buecherrei.domain.BookGenre;
 import com.example.buecherrei.persistence.presentation.api.commands.CreateBookCommand;
+import com.example.buecherrei.persistence.presentation.api.dtos.BookDto;
 import com.example.buecherrei.service.BookService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,13 +26,16 @@ public class BookRestController {
     private final BookService bookService;
 
     @GetMapping
-    public ResponseEntity<List<Book>> getBooks(@RequestParam Optional<String> titelLike) {
-        List<Book> books = titelLike.map(bookService::findBooksWithTitelLike)
-                                         .orElseGet(bookService::getBooks);
+    public ResponseEntity<List<BookDto>> getBooks(@RequestParam Optional<String> titleLike) {
+        List<Book> books = (List<Book>) titleLike.map(bookService::findBooksWithTitelLike)
+                                    .orElseGet(bookService::getBooks);
+        List<BookDto> bookDtos = books.stream()
+                                        .map(BookDto::new)
+                                         .toList();
 
-        return bookService.getBooks().isEmpty()
-                ? ResponseEntity.noContent().build()
-                : ResponseEntity.ok(bookService.getBooks());
+        return (bookDtos.isEmpty())
+                ?ResponseEntity.noContent().build()
+                :ResponseEntity.ok(bookDtos);
     }
 
     @PostMapping
@@ -46,3 +50,15 @@ public class BookRestController {
 
 
 }
+
+/*
+ @GetMapping
+    public ResponseEntity<List<Book>> getBooks(@RequestParam Optional<String> titelLike) {
+        List<Book> books = titelLike.map(bookService::findBooksWithTitelLike)
+                                         .orElseGet(bookService::getBooks);
+
+        return bookService.getBooks().isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(bookService.getBooks());
+    }
+ */

@@ -78,7 +78,7 @@ public class BookRestControllerTest {
                 .publisher("pub")
                 .mainCharacter("Dieter Bohlen")
                 .build();;
-        when(bookService.getBooks()).thenReturn(List.of(book));
+        when(bookService.findBooksWithTitelLike(any())).thenReturn(List.of(book));
         var request = get(BookRestController.BASE_URL).param("titelLike", "titl").accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(request)
