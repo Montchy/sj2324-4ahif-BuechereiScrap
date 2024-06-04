@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Import;
 import java.time.LocalDate;
 import java.util.Collections;
 
+import static com.example.buecherrei.TestFixtures.number;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -29,7 +30,7 @@ public class UserRepositoryTest {
                 .memberships(Collections.emptySet())
                 .currentlyBorrowed(Collections.emptySet())
                 .isSenior(false)
-                .socialSecurityNumber(SocialSecurityNumber.builder().person(null).Birtdate(LocalDate.now()).person(null).rawSocialNumber(RawSocialNumber.builder().RawSocialNumber(100).build()).build())
+                .socialSecurityNumber(number())
                 .surname("Pens")
                 .phoneNumber(PhoneNumber.builder()
                         .areaCode(30)
