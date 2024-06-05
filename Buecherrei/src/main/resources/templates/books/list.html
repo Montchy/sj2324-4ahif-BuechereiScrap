@@ -1,10 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="#{books.list.title}">Bücherliste</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
+<div class="container">
+    <h1 th:text="#{books.list.title}">Bücherliste</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"th:text="#{books.list.key}">Key</th>
+            <th scope="col"th:text="#{books.list.titel}">Titel</th>
+            <th scope="col"th:text="#{books.list.author}">Autor</th>
+            <th scope="col"th:text="#{books.list.genre}">Genre</th>
+            <th scope="col">
+                  <a href="#" class="btn btn-sm btn-primary" th:href="@{books/create}" th:text="#{button.create}">Create</a>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book, bookStatus : ${books}" th:object="${book}">
+            <th scope="row" th:text="*{key}">Key</th>
+            <td th:text="*{title}">Harry Potter</td>
+            <td th:text="*{author}">JK. Rolling</td>
+            <td th:text="*{genre}">Fantasy</td>
+            <td>
+                <a href="#" class="btn btn-sm btn-primary" th:href="@{books/edit/{key}(key=${key})}" th:text="#{button.edit}">Edit</a>
+                <a href="#" class="btn btn-sm btn-danger" th:href="@{books/delete/{key}(key=${key})}" th:text="#{button.delete}">Delete</a>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
 
 </body>
 </html>
