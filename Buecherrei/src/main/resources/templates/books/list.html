@@ -13,9 +13,13 @@
         <thead>
         <tr>
             <th scope="col"th:text="#{books.list.key}">Key</th>
-            <th scope="col"th:text="#{books.list.titel}">Titel</th>
+            <th scope="col"th:text="#{books.list.title}">Titel</th>
             <th scope="col"th:text="#{books.list.author}">Autor</th>
             <th scope="col"th:text="#{books.list.genre}">Genre</th>
+            <th scope="col"th:text="#{books.list.language}">Sprache</th>
+            <th scope="col"th:text="#{books.list.mainCharacter}">Hauptfigur</th>
+            <th scope="col"th:text="#{books.list.publisher}">Herausgeber</th>
+            <th scope="col"th:text="#{books.list.blurb}">Klappentext</th>
             <th scope="col">
                   <a href="#" class="btn btn-sm btn-primary" th:href="@{books/create}" th:text="#{button.create}">Create</a>
             </th>
@@ -27,6 +31,11 @@
             <td th:text="*{title}">Harry Potter</td>
             <td th:text="*{author}">JK. Rolling</td>
             <td th:text="*{genre}">Fantasy</td>
+            <td th:text="*{language}">Deutsch</td>
+            <td th:text="*{mainCharacter}">Harry Potter</td>
+            <td th:text="*{publisher}">British Verlag</td>
+            <td th:text="*{blurb}">Bis zu seinem elften Geburtstag glaubt Harry, er sei ein ganz normaler Junge. Doch dann erfährt er, dass er sich an der Schule für Hexerei und Zauberei einfinden soll – denn er ist ein Zauberer! In Hogwarts stürzt Harry von einem Abenteuer ins nächste und muss gegen Bestien, Mitschüler und Fabelwesen kämpfen. Da ist es gut, dass er schon Freunde gefunden hat, die ihm im Kampf gegen die dunklen Mächte zur Seite stehen.</td>
+
             <td>
                 <a href="#" class="btn btn-sm btn-primary" th:href="@{books/edit/{key}(key=${key})}" th:text="#{button.edit}">Edit</a>
                 <a href="#" class="btn btn-sm btn-danger" th:href="@{books/delete/{key}(key=${key})}" th:text="#{button.delete}">Delete</a>

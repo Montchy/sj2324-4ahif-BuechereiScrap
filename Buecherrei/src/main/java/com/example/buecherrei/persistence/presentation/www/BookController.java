@@ -3,10 +3,14 @@ package com.example.buecherrei.persistence.presentation.www;
 
 import com.example.buecherrei.domain.Book;
 import com.example.buecherrei.service.BookService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.boot.model.internal.CreateKeySecondPass;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -24,6 +28,22 @@ public class BookController {
     List<Book> books = bookService.getBooks();
     model.addAttribute("books", books);
     return "books/list";
+    }
+
+    @GetMapping("/create")
+    public String getCreateBookForm(Model model){
+    model.addAttribute("form", CreateBookForm.init());
+            return "books/create";
+    }
+
+    @GetMapping("/create")
+    public String handleCreateBookFormSubmission(Model model, @Valid @ModelAttribute(name="form") CreateBookForm form, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "redirect:/books";
+        }
+
+        bookService.addBook(form.titel(), form.author(), form.genre(), form.language(), form.mainCharacter(), form.publisher(), form.blurb());
+        return "redirect:/books";
     }
 
 
