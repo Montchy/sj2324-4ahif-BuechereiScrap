@@ -32,6 +32,36 @@ public class BookService {
         return book;
     }
 
+    public Book createBook(String title, String author, BookGenre genre, String language, String mainCharacter, String publisher, String blurb){
+        //log.debug("Check if title {} already exists", title);
 
+        if(bookRepository.existsByTitle(new String(title))){
+            throw BookAlreadyExistsException.forBookTitle(title);
+        }
+
+       // log.debug("Create book {}", title);
+        Book book = Book.builder()
+                .title(new String(title))
+                .author(author)
+                .genre(genre)
+                .language(language)
+                .mainCharacter(mainCharacter)
+                .publisher(publisher)
+                .blurb(blurb)
+                .build();
+        bookRepository.save(book);
+        //log.info("Successfully created book {} (id={}, key={})!", title, book.getId(), book.getKey());
+
+       // log.debug("Create activation token for book {} (id={})", title, book.getId());
+
+       // log.debug("Send confirmation notification for book {} (id={})", title, book.getId());
+
+        return book;
+    }
+
+
+    public void getBookForKey(String key) {
+
+    }
 }
 

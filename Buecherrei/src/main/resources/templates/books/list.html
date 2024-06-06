@@ -27,7 +27,11 @@
         </thead>
         <tbody>
         <tr th:each="book, bookStatus : ${books}" th:object="${book}">
-            <th scope="row" th:text="*{key}">Key</th>
+            <th scope="row" th:text="*{key}">
+                <a href="#" class="btn btn-sm btn-primary" th:href="@{books/shows/{key}(key=${key})}"
+                   th:text="*{key}">Key</a>
+
+                Key</th>
             <td th:text="*{title}">Harry Potter</td>
             <td th:text="*{author}">JK. Rolling</td>
             <td th:text="*{genre}">Fantasy</td>
@@ -37,8 +41,10 @@
             <td th:text="*{blurb}">Bis zu seinem elften Geburtstag glaubt Harry, er sei ein ganz normaler Junge. Doch dann erfährt er, dass er sich an der Schule für Hexerei und Zauberei einfinden soll – denn er ist ein Zauberer! In Hogwarts stürzt Harry von einem Abenteuer ins nächste und muss gegen Bestien, Mitschüler und Fabelwesen kämpfen. Da ist es gut, dass er schon Freunde gefunden hat, die ihm im Kampf gegen die dunklen Mächte zur Seite stehen.</td>
 
             <td>
-                <a href="#" class="btn btn-sm btn-primary" th:href="@{books/edit/{key}(key=${key})}" th:text="#{button.edit}">Edit</a>
-                <a href="#" class="btn btn-sm btn-danger" th:href="@{books/delete/{key}(key=${key})}" th:text="#{button.delete}">Delete</a>
+                <a href="#" class="btn btn-sm btn-primary" th:href="@{books/edit/{key}(key=*{key})}"
+                   th:text="#{button.edit}">Edit</a>
+                <a href="#" class="btn btn-sm btn-danger" th:href="@{books/delete/{key}(key=*{key})}"
+                   th:text="#{button.delete}">Delete</a>
 
             </td>
         </tr>
